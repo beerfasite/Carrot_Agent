@@ -64,7 +64,12 @@ def build_registry() -> ToolRegistry:
 
 
 def build_base_regitry() -> ToolRegistry:
-    pass
+    from . import files, shell
+
+    registry = ToolRegistry()
+    shell.register(registry)
+    files.register(registry)
+    return registry
 
 
 
