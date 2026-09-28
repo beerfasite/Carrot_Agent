@@ -58,12 +58,26 @@ def execute_tool(tool_call: ToolCall, handlers: dict) -> str:
     return str(output)
 
 
+
 def build_registry() -> ToolRegistry:
-    pass
+    """按依赖顺序聚合全部工具的 definitions + handlers。"""
+    from . import files, shell, todo_tool, skill_tool, compact_tool, task_tool, task_system_tools
+
+    registry = ToolRegistry()
+    for mod in (shell, files, todo_tool, skill_tool, compact_tool, task_tool, task_system_tools):
+        mod.register(registry)
+
+    try:
+        from . import workflow_tool
+        workflow_tool.register(registry)
+    except ImportError:
+        pass
+    return registry
 
 
 
-def build_base_regitry() -> ToolRegistry:
+
+def build_base_registry() -> ToolRegistry:
     from . import files, shell
 
     registry = ToolRegistry()

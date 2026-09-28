@@ -4,7 +4,7 @@ import json
 
 class TodoManager:
     def __init__(self):
-        self.item: list[dict] = []
+        self.items: list[dict] = []
 
     def update(self,todos: list | str) -> str:
         if isinstance(todos, str):
@@ -55,7 +55,7 @@ class TodoManager:
         done = sum(todo["status"] == "completed" for todo in self.items)
         lines.append(f"\n({done}/{len(self.items)} completed)")
         return "\n".join(lines)
-    
+
 
 TODO = TodoManager()
 

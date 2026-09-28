@@ -1,10 +1,8 @@
 
 import json
 
-from openai.types.responses import response_prompt
-
-from carrot import config, hooks
-from tools import ToolCall, build_base_registry, execute_tool
+from . import config, hooks
+from .tools import ToolCall, build_base_registry, execute_tool
 
 SUB_SYSTEM = (
     f"You are a coding agent at {config.WORKDIR}. "

@@ -22,11 +22,11 @@ def register_hook(event:str,callback) -> None:
 
 
 #调用hooks位置的回调函数
-def trigger_hooks(event : str, *args):
-    for callback in HOOKS:
+def trigger_hooks(event: str, *args):
+    for callback in HOOKS[event]:
         result = callback(*args)
-    if result is not None:
-        return result
+        if result is not None:
+            return result
     return None
 
 
