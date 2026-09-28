@@ -1,4 +1,3 @@
-"""任务系统（课程 s10 精髓：持久化任务 + 依赖图 + claim/complete 解锁）。"""
 
 from __future__ import annotations
 
