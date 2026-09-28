@@ -1,4 +1,3 @@
-"""load_skill 工具（课程 s07：按名加载完整 SKILL.md）。"""
 
 from .. import skills
 
