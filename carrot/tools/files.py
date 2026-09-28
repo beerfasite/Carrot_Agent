@@ -60,14 +60,6 @@ def run_glob(pattern: str) -> str:
 
 
 
-HANDLERS = {
-    "read_file": run_read,
-    "write_file": run_write,
-    "edit_file": run_edit,
-    "glob": run_glob,
-}
-
-
 DEFINITIONS = [
     {"name": "read_file", "description": "Read file contents.",
      "input_schema": {"type": "object",
@@ -89,6 +81,14 @@ DEFINITIONS = [
     {"name": "glob", "description": "Find files matching a glob pattern; ** matches recursively.",
      "input_schema": {"type": "object", "properties": {"pattern": {"type": "string"}}, "required": ["pattern"]}},
 ]
+
+
+HANDLERS = {
+    "read_file": run_read,
+    "write_file": run_write,
+    "edit_file": run_edit,
+    "glob": run_glob,
+}
 
 
 

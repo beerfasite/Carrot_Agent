@@ -17,7 +17,7 @@ HOOKS: dict[str, list] = {event: [] for event in HOOK_EVENTS}
 def register_hook(event:str,callback) -> None:
     """event就是HOOK_EVENTS之中"""
     if event not in HOOKS:
-        raise ValueError(f"Unknown hook event : {event}")
+        raise ValueError(f"Unknown hook event: {event}")
     HOOKS[event].append(callback)
 
 

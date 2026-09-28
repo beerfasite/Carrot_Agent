@@ -1,4 +1,3 @@
-from turtledemo.clock import hand
 from typing import Callable
 
 from .. import hooks
@@ -29,7 +28,7 @@ class ToolRegistry:
         self.definitions.append(definition)
         self.handlers[definition["name"]] = handler
 
-    def openai_tools(self):
+    def openai_tools(self) -> list[dict]:
         return [to_openai_tool(d) for d in self.definitions]
 
 

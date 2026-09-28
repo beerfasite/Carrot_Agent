@@ -46,8 +46,8 @@ class TodoManager:
 
 
     def render(self) -> str:
-        if not self.item:
-            return "No todos"
+        if not self.items:
+            return "No todos."
         lines = []
         markers = {"pending": "[ ]", "in_progress": "[>]", "completed": "[x]"}
         for todo in self.items:

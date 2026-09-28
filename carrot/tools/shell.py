@@ -29,7 +29,7 @@ def run_bash(command : str) -> str:
         output = (result.stdout + result.stderr).strip()
         return output[:50000] if output else "(no output)"
     except subprocess.TimeoutExpired:
-        return "Error : Timeout (120s)"
+        return "Error: Timeout (120s)"
 
 
 
