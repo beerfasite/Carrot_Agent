@@ -51,15 +51,12 @@ def run_subagent(prompt: str) -> str:
         })
 
         for tc in message.tool_calls:
-            """
-            情况二（最致命）：工具完成顺序是不确定的
-            模型如果按"第 1 条结果 = 第 1 个请求"来理解，
-            就会得出完全错误的结论——它以为 call_2 的结果是 call_1（那个慢脚本）的。
-            用 ID 就没这个问题：无论什么顺序回来，tool_call_id 一说就对上号。
-            情况三：历史会被压缩/裁剪
-            课程 s08 的 compactor 会从中间归档掉一批消息（snip_compact）。
-            如果配对靠"位置"，一旦中间被切掉，后面的位置全错位。靠 ID 则不受影响。
-            """
+            # 为什么要靠 tool_call_id 配对，而不是靠顺序：
+            #   情况二（最致命）：工具完成顺序是不确定的。
+            #     模型若按「第 1 条结果 = 第 1 个请求」来理解就会张冠李戴——
+            #     比如最先回来的其实是第 2 个请求的结果。
+            #   情况三：历史会被压缩 / 裁剪（compactor 的 snip_compact 会归档中间段）。
+            #     靠「位置」配对，中间一旦被切掉，后面的位置全错位；靠 ID 则不受影响。
 
             name = tc.function.name
             args = json.loads(tc.function.arguments or "{}")

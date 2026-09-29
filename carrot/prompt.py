@@ -14,6 +14,25 @@ COMPACT_GUIDANCE = (
 )
 
 
+def _workflow_catalog() -> str:
+    """列出可用的 workflow。
+
+    懒加载 + 容错：只有真正要用时才 import workflow 包，
+    这样即使没装 langgraph，主循环也能照常启动。
+    （和 tools/__init__.py 里注册 Workflow 工具是同一套路子。）
+    """
+    try:
+        from .workflow import WORKFLOWS
+    except ImportError:
+        return ""
+    if not WORKFLOWS:
+        return ""
+    return "\n".join(
+        f"- {name}: {meta.get('description', '')}"
+        for name, (meta, _) in WORKFLOWS.items()
+    )
+
+
 def build_system(relevant_memories: str = "") -> str:
     sections = [BASE]
 
@@ -32,6 +51,13 @@ def build_system(relevant_memories: str = "") -> str:
         f"Skills available:\n{skills.SKILL_LOADER.catalog()}\n\n"
         "Use load_skill to read the full instructions when a skill applies."
     )
+
+    workflow_catalog = _workflow_catalog()
+    if workflow_catalog:
+        sections.append(
+            f"Workflows available (run one with the Workflow tool, by name):\n{workflow_catalog}"
+        )
+
     sections.append(COMPACT_GUIDANCE)
 
     return "\n\n".join(sections)
